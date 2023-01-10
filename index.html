@@ -1,0 +1,79 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>GFG User Details</title>
+    
+     <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js"></script>
+   <style>
+    	#root {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="root">
+    	<div>
+    	<div id='subscribers'>
+	<h2><span id="subscribersCount">0</span></h3>    
+        	<h4>Subscribers</h3>    
+        </div>
+        <div id='views'>
+        	<h2><span id="viewsCount">0</span></h2>   
+ 	<h4>Views</h4>   
+        </div>
+        <div id='videos'>
+        	<h2><span id="videosCount">0</span></h2> 
+        	<h4>Videos</h4> 
+        </div>
+      </div>
+      
+    </div>
+   
+
+    <script>
+        fetch("https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCf0O2efB4K66UUaT7QJPVNA&key=AIzaSyA6gov7vbpCOnBZeOCO1vBo9-JKF5-2pSQ")
+        .then(response => response.json())
+        .then(data => {
+        	const subscribersCount = document.getElementById("subscribersCount");
+            const viewsCount = document.getElementById("viewsCount");
+            const videosCount = document.getElementById("videosCount");
+            const numberFormatter = Intl.NumberFormat('en-US');
+            subscribersCount.innerText = numberFormatter.format(data.items[0].statistics.subscriberCount);
+            viewsCount.innerText = numberFormatter.format(data.items[0].statistics.viewCount);
+            videosCount.innerText = numberFormatter.format(data.items[0].statistics.videoCount);
+            
+            const counterUp = window.counterUp.default
+     
+     		const subscribersCounter = document.querySelector( '#subscribersCount')
+            const viewsCounter = document.querySelector( '#viewsCount')
+            const videosCounter = document.querySelector( '#videosCount')
+
+           counterUp(subscribersCounter, {
+                duration: 200,
+                delay: 1,
+            })
+            
+            counterUp(viewsCounter, {
+                duration: 200,
+                delay: 1,
+            })
+            
+            counterUp(videosCounter, {
+                duration: 200,
+                delay: 1
+            })
+        })
+       
+
+    </script> 
+
+</body>
+
+</html>
